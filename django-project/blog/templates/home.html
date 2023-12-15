@@ -7,14 +7,13 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-        {% extends "base.html" %} 
+        {% extends "base.html" %}
         {% block content %}
+        {% include 'pagination.html' with items=posts %}
         {% for post in posts %}
-       <!-- {{ post.pk }} : {{ post }} -->
-    <a href="{{ post.get_absolute_url }}">  {{ post.pk }} : {{ post }}
-    </a>
-<br>
-{% endfor %}
+        {{ post.pk }} : {{ post }} 
+        <a href="{{ post.get_absolute_url }}"> {{ post.pk }} : {{ post }}</a><br>
+        {% endfor %}
         {% endblock %}
     </body>
 </html>

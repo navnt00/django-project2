@@ -3,6 +3,9 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
+from imagekit.models import ImageSpecField
+from pilkit.processors import ResizeToFill
+
 
 class Post(models.Model):
     title = models.CharField(default='' , max_length=255)
@@ -11,6 +14,8 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add =True , null =True)
     updated = models.DateTimeField(auto_now = True , null = True)
     author = models.ForeignKey(User , null=True , blank=True , on_delete=models.CASCADE)
+    image = models.ImageField(default='' , blank=True , upload_to='images')
+    image_thumbnail = ImageSpecField(source='image' , processors=[ResizeToFill(700 , 150)], format='JPEG' , options={'quality':60})
     
 
     tags = TaggableManager
